@@ -44,6 +44,10 @@ class Bot(commands.Bot):
         # Sending a reply back to the channel is easy... Below is an example.
         await ctx.send(f'Hello {ctx.author.name}!')
 
+    @commands.command()
+    async def yo(self, ctx: commands.Context):
+        await ctx.send('Hiiiiiiiiiii')
+
 
 if __name__ == '__main__':
     bot = Bot()
