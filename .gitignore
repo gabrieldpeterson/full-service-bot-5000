@@ -4,6 +4,9 @@
 # Twitch channel to be chatting in
 .channel
 
+# The response lists
+responses/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
