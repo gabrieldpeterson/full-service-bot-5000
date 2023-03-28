@@ -1,3 +1,9 @@
+# Twitch token is location in the .token file
+.token
+
+# Twitch channel to be chatting in
+.channel
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

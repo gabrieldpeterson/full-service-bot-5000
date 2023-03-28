@@ -1,16 +1,52 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from twitchio.ext import commands
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+class Bot(commands.Bot):
+
+    def __init__(self):
+        with open('.token') as f:
+            access_token = f.read().strip()
+
+        with open('.channel') as f:
+            channel = f.read().strip()
+
+        # Initialise our Bot with our access token, prefix and a list of channels to join on boot...
+        # prefix can be a callable, which returns a list of strings or a string...
+        # initial_channels can also be a callable which returns a list of strings...
+        super().__init__(token=access_token, prefix='!', initial_channels=[channel])
+
+    async def event_ready(self):
+        # Notify us when everything is ready!
+        # We are logged in and ready to chat and use commands...
+        print(f'Logged in as | {self.nick}')
+        print(f'User id is | {self.user_id}')
+
+    async def event_message(self, message):
+        # Messages with echo set to True are messages sent by the bot...
+        # For now we just want to ignore them...
+        if message.echo:
+            return
+
+        # Print the contents of our message to console...
+        print(message.content)
+
+        # Since we have commands and are overriding the default `event_message`
+        # We must let the bot know we want to handle and invoke our commands...
+        await self.handle_commands(message)
+
+    @commands.command()
+    async def hello(self, ctx: commands.Context):
+        # Here we have a command hello, we can invoke our command with our prefix and command name
+        # e.g ?hello
+        # We can also give our commands aliases (different names) to invoke with.
+
+        # Send a hello back!
+        # Sending a reply back to the channel is easy... Below is an example.
+        await ctx.send(f'Hello {ctx.author.name}!')
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    bot = Bot()
+    bot.run()
+    # bot.run() is blocking and will stop execution of any below code here until stopped or closed.
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
