@@ -1,4 +1,6 @@
 from twitchio.ext import commands
+import response
+from random import randint
 
 
 class Bot(commands.Bot):
@@ -10,10 +12,29 @@ class Bot(commands.Bot):
         with open('.channel') as f:
             channel = f.read().strip()
 
+        self.all_responses = response.load_all_responses()
+
         # Initialise our Bot with our access token, prefix and a list of channels to join on boot...
         # prefix can be a callable, which returns a list of strings or a string...
         # initial_channels can also be a callable which returns a list of strings...
         super().__init__(token=access_token, prefix='!', initial_channels=[channel])
+
+    def get_response(self):
+        random_list = randint(0, len(self.all_responses) - 1)
+        random_response = randint(1, len(self.all_responses[random_list]) - 1)
+
+        emotion = self.all_responses[random_list][0]
+        chosen_response = self.all_responses[random_list][random_response]
+
+        del self.all_responses[random_list][random_response]
+
+        if len(self.all_responses[random_list]) == 1:
+            file = self.all_responses[random_list][0]
+            loaded_responses = response.load_specific_responses((file))
+            for item in loaded_responses:
+                self.all_responses[random_list].append(item)
+
+        return f'{emotion}: {chosen_response}'
 
     async def event_ready(self):
         # Notify us when everything is ready!
@@ -46,11 +67,10 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def yo(self, ctx: commands.Context):
-        await ctx.send('Hiiiiiiiiiii')
+        await ctx.send(f'{ctx.author.name}, {self.get_response()}')
 
 
 if __name__ == '__main__':
     bot = Bot()
     bot.run()
     # bot.run() is blocking and will stop execution of any below code here until stopped or closed.
-
