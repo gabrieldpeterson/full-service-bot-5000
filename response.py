@@ -4,7 +4,6 @@ from os import listdir
 def load_all_responses():
     all_responses = []
     files = load_response_file_names()
-    print(files)
 
     for file in files:
         with open(f'responses/{file}') as f:

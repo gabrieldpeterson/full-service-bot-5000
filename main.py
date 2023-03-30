@@ -30,11 +30,12 @@ class Bot(commands.Bot):
 
         if len(self.all_responses[random_list]) == 1:
             file = self.all_responses[random_list][0]
-            loaded_responses = response.load_specific_responses((file))
+            loaded_responses = response.load_specific_responses(file)
             for item in loaded_responses:
                 self.all_responses[random_list].append(item)
 
-        return f'{emotion}: {chosen_response}'
+        # set code to pass {emotion} as an argument to trigger OBS
+        return f'{chosen_response}'
 
     async def event_ready(self):
         # Notify us when everything is ready!
@@ -55,19 +56,9 @@ class Bot(commands.Bot):
         # We must let the bot know we want to handle and invoke our commands...
         await self.handle_commands(message)
 
-    @commands.command()
-    async def hello(self, ctx: commands.Context):
-        # Here we have a command hello, we can invoke our command with our prefix and command name
-        # e.g ?hello
-        # We can also give our commands aliases (different names) to invoke with.
-
-        # Send a hello back!
-        # Sending a reply back to the channel is easy... Below is an example.
-        await ctx.send(f'Hello {ctx.author.name}!')
-
-    @commands.command()
-    async def yo(self, ctx: commands.Context):
-        await ctx.send(f'{ctx.author.name}, {self.get_response()}')
+    @commands.command(aliases=['fsb5000,', 'fsb5000!', 'fsb5000.', 'fsb5000;'])
+    async def fsb5000(self, ctx: commands.Context):
+        await ctx.send(f'{ctx.author.name} {self.get_response()}')
 
 
 if __name__ == '__main__':
