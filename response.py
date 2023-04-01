@@ -21,3 +21,7 @@ def load_specific_responses(file):
 
 def load_response_file_names():
     return listdir('responses')
+
+
+def parse_emotional_response(emotion_file_name):
+    return emotion_file_name.split('-')[0]

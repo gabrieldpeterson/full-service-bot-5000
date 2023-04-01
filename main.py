@@ -1,6 +1,7 @@
 from twitchio.ext import commands
 import response
 from random import randint
+import obs_controller
 
 
 class Bot(commands.Bot):
@@ -19,11 +20,11 @@ class Bot(commands.Bot):
         # initial_channels can also be a callable which returns a list of strings...
         super().__init__(token=access_token, prefix='!', initial_channels=[channel])
 
-    def get_response(self):
+    async def get_response(self):
         random_list = randint(0, len(self.all_responses) - 1)
         random_response = randint(1, len(self.all_responses[random_list]) - 1)
 
-        emotion = self.all_responses[random_list][0]
+        emotion_file = self.all_responses[random_list][0]
         chosen_response = self.all_responses[random_list][random_response]
 
         del self.all_responses[random_list][random_response]
@@ -35,6 +36,8 @@ class Bot(commands.Bot):
                 self.all_responses[random_list].append(item)
 
         # set code to pass {emotion} as an argument to trigger OBS
+        emotion = response.parse_emotional_response(emotion_file)
+        obs_controller.toggle_fsb_visual(emotion)
         return f'{chosen_response}'
 
     async def event_ready(self):
@@ -58,7 +61,7 @@ class Bot(commands.Bot):
 
     @commands.command(aliases=['fsb5000,', 'fsb5000!', 'fsb5000.', 'fsb5000;'])
     async def fsb5000(self, ctx: commands.Context):
-        await ctx.send(f'{ctx.author.name} {self.get_response()}')
+        await ctx.send(f'{ctx.author.name} {await self.get_response()}')
 
 
 if __name__ == '__main__':
