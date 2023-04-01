@@ -8,6 +8,7 @@ def toggle_fsb_visual(emotion):
     passes = load_websocket_passes()
     cl = obs.ReqClient(host='localhost', port=passes[0], password=passes[1])
 
+    # The streamer chose this name. Change to the name of scene the sources are under
     scene_name = 'StreamingPoop'
 
     # I know starting with Python 3.10 there are switch statements, but I wrote this in 3.9
