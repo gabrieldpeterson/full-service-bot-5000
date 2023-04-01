@@ -1,6 +1,7 @@
 from twitchio.ext import commands
-import response
 from random import randint
+import threading
+import response
 import obs_controller
 
 
@@ -35,9 +36,10 @@ class Bot(commands.Bot):
             for item in loaded_responses:
                 self.all_responses[random_list].append(item)
 
-        # set code to pass {emotion} as an argument to trigger OBS
+        # Control OBS, the OBS controller is run on a separate thread to prevent holding up the response
         emotion = response.parse_emotional_response(emotion_file)
-        obs_controller.toggle_fsb_visual(emotion)
+        toggle_graphic_thread = threading.Thread(target=obs_controller.toggle_fsb_visual, args=[emotion])
+        toggle_graphic_thread.start()
         return f'{chosen_response}'
 
     async def event_ready(self):

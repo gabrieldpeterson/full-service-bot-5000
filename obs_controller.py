@@ -1,3 +1,5 @@
+import time
+
 import obsws_python as obs
 
 # list of requests accessible to obsws_python. Just call them in snake case
@@ -7,6 +9,9 @@ import obsws_python as obs
 def toggle_fsb_visual(emotion):
     passes = load_websocket_passes()
     cl = obs.ReqClient(host='localhost', port=passes[0], password=passes[1])
+
+    # Duration of how long the source will be enabled before reverting back to hidden
+    graphic_duration = 4
 
     # The streamer chose this name. Change to the name of scene the sources are under
     scene_name = 'StreamingPoop'
@@ -26,6 +31,8 @@ def toggle_fsb_visual(emotion):
     source_id = cl.get_scene_item_id(scene_name, source_name)
 
     cl.set_scene_item_enabled('StreamingPoop', source_id.scene_item_id, True)
+    time.sleep(graphic_duration)
+    cl.set_scene_item_enabled('StreamingPoop', source_id.scene_item_id, False)
 
 
 def load_websocket_passes():
