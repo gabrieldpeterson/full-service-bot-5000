@@ -63,7 +63,9 @@ class Bot(commands.Bot):
 
     @commands.command(aliases=['fsb5000,', 'fsb5000!', 'fsb5000.', 'fsb5000;'])
     async def fsb5000(self, ctx: commands.Context):
-        await ctx.send(f'{ctx.author.name} {await self.get_response()}')
+        fsb_response = await self.get_response()
+        await ctx.send(f'{ctx.author.name}{fsb_response.strip()}')
+        print(f'Full Service Bot 5000: {ctx.author.name}{fsb_response.strip()}')
 
 
 if __name__ == '__main__':
