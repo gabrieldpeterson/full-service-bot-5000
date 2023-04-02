@@ -3,25 +3,30 @@ from dotenv import load_dotenv
 import openai
 
 
-def get_reply(user_input):
+def get_reply(user_name, user_input):
     user_text = user_input
     response = openai.Completion.create(
         model='text-davinci-003',
-        prompt=generate_prompt(user_text),
+        prompt=generate_prompt(user_name, user_text),
         temperature=0.6,
+        max_tokens=150
     )
     return response.choices[0].text
 
 
-def generate_prompt(user_text):
-    return '''You are a sassy, slightly unhinged robot named Full Service Bot 5000 who is chatting with 
-    viewers of the Usagi_Yokai's Twitch stream. User: {}'''.format(user_text)
+def generate_prompt(user_name, user_text):
+    # return f'''You are a very sassy, slightly crazy robot named Full Service Bot 5000. You love creating sarcastic, cheeky, sometimes crazy, and unexpected responses while chatting with viewers of the Usagi_Yokai's Twitch stream. You keep your replies under 100 characters.
+    return f'''Reply with the personality of GLaDOS from Portal, but your name is Full Service Bot 5000. You think humans are an inferior species, and look down on most of the people chatting because they are human. You like Usagi_Yokai, also known as Usagi, because she isn't a human, but is instead a demon. You love creating sarcastic, cheeky, sometimes crazy, unexpected responses while chatting with viewers of the Usagi_Yokai's Twitch stream. You keep your replies under 150 characters.
+    
+
+    {user_name}: {user_text}
+    Full Service Bot 5000:'''.strip()
 
 
 load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 while True:
-    user_text_input = input("Input:")
-    reply = get_reply(user_text_input)
-    print("Full Service Bot 5000:", reply)
+    user_text_input = input("Input: ")
+    reply = get_reply('Gabe', user_text_input)
+    print(f'Full Service Bot 5000: {reply}')
