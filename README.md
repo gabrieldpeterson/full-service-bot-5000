@@ -1,14 +1,19 @@
 # Full Service Bot 5000
 This was created for a Twitch streamer to have running in their chat.
 
-This will reply to users in a variety of ways based off of four lists. It will respond positively, negatively, neutrally, or with an insane response at random. 
-It will also set a trigger OBS sources to enable then disable so that the bot gains a graphical response
+This will reply to users in a variety of ways based off ChatGPT 4.0, prompted in a way to give the impression of a particular personality.
 
-A .token, .channel, and .obs-websocket file will need to be created.
-The .token file will only contain the Twitch access token, and the .channel file will have to Twitch channel name to post in.
-The first line in the .obs-websocket file will be the port, and the second will be the websocket plugin password
+## A .env file will need to be created. It should look like the following
+```
+OPENAI_API_KEY=theOpenAiKey
+TWITCH_ACCESS_TOKEN=theTwitchAccessToken
+CHANNEL=theTwitchChannelToChatOn
+WEB_SOCKET_PORT=webSocketPort
+WEB_SOCKET_PASSWORD=webSocketPassword
+```
 
-The response lists are in the responses folder. Add each response on a new line. In the responses folder there should be a positive-responses.txt, a negative-responses.txt, a neutral-responses.txt, and an insane-responses.txt.
-I've only added two each as an example, and will add it to the gitignore after so the streamer's responses aren't tracked.
-
+## OBS Sources
 In OBS, in whichever scene you choose, have a corresponding source for each response file. By default, the code works with sources named 'fsbPositive', 'fsbNegative', 'fsbNeutral', and 'fsbInsane'. Make sure to change the scene variable in the obs_controller.py file to scene name the sources are under.
+
+## Not currently in use
+* chatgpt_response.py - This was a test using a cheaper ChatGPT 3.5 model, but I found the response time too slow. I will revisit later to see if there have been speed improvements

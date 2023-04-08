@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 import openai
 
+# Not used. It seems to work okay, but this model is far too slow right now
+
 
 def get_reply(user_name, user_input):
     user_text = user_input

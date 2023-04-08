@@ -1,15 +1,3 @@
-# Twitch token is location in the .token file
-.token
-
-# Twitch channel to be chatting in
-.channel
-
-# OBS Websocket settings
-.obs-websocket
-
-# The response lists
-responses/
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
