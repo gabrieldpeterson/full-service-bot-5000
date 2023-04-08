@@ -2,6 +2,7 @@
 This was created for a Twitch streamer to have running in their chat.
 
 This will reply to users in a variety of ways based off ChatGPT 4.0, prompted in a way to give the impression of a particular personality.
+It will also trigger the enabling, then disabling after a duration, a source inside a scene in OBS
 
 ## A .env file will need to be created. It should look like the following
 ```
