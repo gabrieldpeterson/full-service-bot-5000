@@ -1,4 +1,6 @@
 import time
+from dotenv import load_dotenv
+import os
 
 import obsws_python as obs
 
@@ -7,11 +9,13 @@ import obsws_python as obs
 
 
 def toggle_fsb_visual(emotion):
-    passes = load_websocket_passes()
-    cl = obs.ReqClient(host='localhost', port=passes[0], password=passes[1])
+    ws_port = os.getenv('WEB_SOCKET_PORT')
+    ws_password = os.getenv('WEB_SOCKET_PASSWORD')
+
+    cl = obs.ReqClient(host='localhost', port=ws_port, password=ws_password)
 
     # Duration of how long the source will be enabled before reverting back to hidden
-    graphic_duration = 4
+    graphic_duration = 8
 
     # The streamer chose this name. Change to the name of scene the sources are under
     scene_name = 'StreamingPoop'
@@ -35,6 +39,4 @@ def toggle_fsb_visual(emotion):
     cl.set_scene_item_enabled('StreamingPoop', source_id.scene_item_id, False)
 
 
-def load_websocket_passes():
-    with open('.obs-websocket') as f:
-        return f.read().splitlines()
+load_dotenv()
