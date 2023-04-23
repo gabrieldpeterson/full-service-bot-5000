@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 
 import obs_controller
-import chatgpt_response_davinci as crd
+import chatgpt_response as cr
 
 
 class Bot(commands.Bot):
@@ -19,10 +19,10 @@ class Bot(commands.Bot):
         super().__init__(token=access_token, prefix='!', initial_channels=[channel])
 
     async def get_response(self, user_name, user_message):
-        response = crd.get_reply(user_name, user_message)
+        response = cr.get_reply(user_name, user_message)
 
         # Control OBS, the OBS controller is run on a separate thread to prevent holding up the response
-        emotion = crd.determine_tone(response)
+        emotion = cr.determine_tone(response)
         toggle_graphic_thread = threading.Thread(target=obs_controller.toggle_fsb_visual, args=[emotion])
         toggle_graphic_thread.start()
         return f'{response}'
