@@ -15,7 +15,7 @@ def get_reply(user_name, user_input):
         messages=[
             {
                 "role": "system",
-                "content": FSB5000_PROMPT
+                "content": f'{FSB5000_PROMPT} This is not part of your personality, just additional info you should know. Today\'s stream is about: {daily_stream_prompt}. You should also know: {any_additional_info_prompt}'
             },
             {
                 "role": "user",
@@ -47,6 +47,9 @@ def determine_tone(fsb_response):
 
 load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
+
+daily_stream_prompt = input('What are you streaming today?: ')
+any_additional_info_prompt = input('Anything else I should know: ')
 
 if __name__ == '__main__':
     user_name_input = input('Name: ')
