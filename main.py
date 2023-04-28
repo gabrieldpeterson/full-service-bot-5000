@@ -5,6 +5,7 @@ import os
 
 import obs_controller
 import chatgpt_response as cr
+import log
 
 
 class Bot(commands.Bot):
@@ -41,6 +42,7 @@ class Bot(commands.Bot):
 
         # Print the contents of our message to console...
         print(message.content)
+        log.log_chat(f'{message.author.display_name}: {message.content}\n')
 
         # Since we have commands and are overriding the default `event_message`
         # We must let the bot know we want to handle and invoke our commands...
@@ -50,7 +52,8 @@ class Bot(commands.Bot):
     async def fsb5000(self, ctx: commands.Context):
         fsb_response = await self.get_response(ctx.author.display_name, ctx.message.content)
         await ctx.send(f'@{ctx.author.display_name} {fsb_response.strip()}')
-        print(f'Full Service Bot 5000: {ctx.author.display_name} -> {fsb_response.strip()}')
+        print(f'***** Full Service Bot 5000: {ctx.author.display_name} -> {fsb_response.strip()}')
+        log.log_chat(f'***** Full Service Bot 5000: {ctx.author.display_name} -> {fsb_response.strip()}\n')
 
 
 if __name__ == '__main__':
