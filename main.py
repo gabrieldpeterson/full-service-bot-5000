@@ -43,7 +43,7 @@ class Bot(commands.Bot):
         # Print the contents of our message to console...
         message_log_text = f'{message.author.display_name}: {message.content}'
         print(message_log_text)
-        log.log_chat(f'{message_log_text}\n')
+        log.log_chat(message_log_text)
 
         # Since we have commands and are overriding the default `event_message`
         # We must let the bot know we want to handle and invoke our commands...
@@ -55,7 +55,7 @@ class Bot(commands.Bot):
         await ctx.send(f'@{ctx.author.display_name} {fsb_response.strip()}')
         fsb_response_log_text = f'***** Full Service Bot 5000: {ctx.author.display_name} -> {fsb_response.strip()}'
         print(fsb_response_log_text)
-        log.log_chat(f'{fsb_response_log_text}\n')
+        log.log_chat(fsb_response_log_text)
 
 
 if __name__ == '__main__':
