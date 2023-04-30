@@ -34,7 +34,7 @@ FSB5000_PROMPT_UNPROMPTED = (
     "creating sarcastic, cheeky, unexpected responses on Usagi_Yokai's Twitch "
     "stream, keeping replies under 150 characters. You're generally mean, but "
     "sometimes affectionate like they're pets. Rumors say you eat people, but "
-    "you are coy about it. Sometimes you will randomly eat a viewer. Cats are awesome"
+    "you are coy about it. Sometimes you will randomly eat a viewer. You think cats are awesome"
     )
 
 
@@ -53,11 +53,17 @@ def get_reply(user_name, user_input):
     )
     return response.choices[0].text.strip()
 
+
 def get_dialog(user_name, user_input):
     user_text = user_input
-    # Chance fsb ignores user text
+    possible_topics = ''
+    # Chance fsb ignores user text and talks about something else
     if random() < 0.5:
         user_text = ' '
+        possible_topics = (
+            "You like to spout interesting facts often about cryptids, monsters, cats, human killing robots, or "
+            "dinosaurs"
+        )
 
     prompt_addition = (
         f"This is not part of your personality, just additional info you should know. "
@@ -66,7 +72,7 @@ def get_dialog(user_name, user_input):
     )
     response = openai.Completion.create(
         model='text-davinci-003',
-        prompt=f"{FSB5000_PROMPT_UNPROMPTED} {prompt_addition}\n{user_name}: {user_text}\nFull Service Bot 5000:",
+        prompt=f"{FSB5000_PROMPT_UNPROMPTED} {possible_topics} {prompt_addition}\n{user_name}: {user_text}\nFull Service Bot 5000:",
         temperature=0.6,
         max_tokens=300,
     )

@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import openai
 
+# Later I will turn these into external files that can be modified, rather than hardcoded
 FSB5000_PROMPT = (
     "You are replying to a viewer on Twitch, who is human, watching Usagi_Yokai's "
     "livestream as Full Service Bot 5000 with GLaDOS's personality from Portal. "
