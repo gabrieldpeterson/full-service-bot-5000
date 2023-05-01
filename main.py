@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 
 import obs_controller
-import chatgpt_response_davinci as cr
+import chatgpt_response as cr
 import log
 
 

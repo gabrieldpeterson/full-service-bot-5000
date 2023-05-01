@@ -18,7 +18,7 @@ def get_reply(user_name, user_input):
         prompt_addition += ' You hate both with a burning passion, and know Usagi does too'
 
     response = openai.Completion.create(
-        model='text-davinci-003',
+        model='gpt-4',
         prompt=f"{FSB5000_PROMPT} {prompt_addition}\n{user_name}: {user_text}\nFull Service Bot 5000:",
         temperature=0.8,
         max_tokens=300,
@@ -40,7 +40,7 @@ def get_dialog(user_name, user_input):
         f"{any_additional_info_prompt}"
     )
     response = openai.Completion.create(
-        model='text-davinci-003',
+        model='gpt-4',
         prompt=f"{FSB5000_PROMPT_UNPROMPTED} {unprompted_topics} {prompt_addition}\n{user_name}: {user_text}\nFull Service Bot 5000:",
         temperature=0.8,
         max_tokens=300,
@@ -50,7 +50,7 @@ def get_dialog(user_name, user_input):
 
 def determine_tone(fsb_response):
     tone = openai.Completion.create(
-        model='text-davinci-003',
+        model='gpt-4',
         prompt=f'{TONE_PROMPT} "{fsb_response}"',
         temperature=0.8,
         max_tokens=150,
