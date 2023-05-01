@@ -20,7 +20,7 @@ def get_reply(user_name, user_input):
     response = openai.Completion.create(
         model='text-davinci-003',
         prompt=f"{FSB5000_PROMPT} {prompt_addition}\n{user_name}: {user_text}\nFull Service Bot 5000:",
-        temperature=0.6,
+        temperature=0.8,
         max_tokens=300,
     )
     return response.choices[0].text.strip()
@@ -42,7 +42,7 @@ def get_dialog(user_name, user_input):
     response = openai.Completion.create(
         model='text-davinci-003',
         prompt=f"{FSB5000_PROMPT_UNPROMPTED} {unprompted_topics} {prompt_addition}\n{user_name}: {user_text}\nFull Service Bot 5000:",
-        temperature=0.6,
+        temperature=0.8,
         max_tokens=300,
     )
     return response.choices[0].text.strip()
@@ -52,7 +52,7 @@ def determine_tone(fsb_response):
     tone = openai.Completion.create(
         model='text-davinci-003',
         prompt=f'{TONE_PROMPT} "{fsb_response}"',
-        temperature=0.6,
+        temperature=0.8,
         max_tokens=150,
         n=1,
         stop=None,
@@ -79,8 +79,9 @@ daily_stream_prompt = input('What are you streaming today?: ')
 any_additional_info_prompt = input('Anything else I should know: ')
 
 if __name__ == '__main__':
+    user_name_input = input('Name: ')
+
     while True:
-        user_name_input = input('Name: ')
         user_text_input = input('Input: ')
         reply = get_reply(user_name_input, user_text_input)
         reply_tone = determine_tone(reply)
