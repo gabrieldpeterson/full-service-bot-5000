@@ -1,0 +1,1 @@
+Analyze the emotional tone of this message and classify it as 'positive', 'negative', 'neutral', or 'insane'. Reply back with a one word response, lowercase, consisting only of one of those four words:
