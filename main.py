@@ -56,7 +56,7 @@ class Bot(commands.Bot):
         log.log_chat(message_log_text)
 
         # Randomly pick someone speaking to talk with
-        random_threshold = 0.25
+        random_threshold = 0.15
         random_number = random()
         if random_number < random_threshold and message.content[0] != '!':
             await self.speak_unprompted(message.author.display_name, message.content)
