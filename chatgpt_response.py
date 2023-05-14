@@ -31,7 +31,8 @@ def get_reply(user_name, user_input):
                     f'{FSB5000_PROMPT} {prompt_addition} This is not part of your personality, '
                     f'just additional info you should know. Today\'s stream is '
                     f'about: {daily_stream_prompt}. You should also know: '
-                    f'{any_additional_info_prompt}'
+                    f'{any_additional_info_prompt}. {user_name} is the name of the viewer you are responding to, and doesn\'t '
+                    'necessarily have any meaning behind it.'
                 )
             },
             {
@@ -70,7 +71,8 @@ def get_dialog(user_name, user_input):
                     f'{FSB5000_PROMPT_UNPROMPTED} {unprompted_topics} {prompt_addition} This is not part of your personality, '
                     f'just additional info you should know. Today\'s stream is '
                     f'about: {daily_stream_prompt}. You should also know: '
-                    f'{any_additional_info_prompt}'
+                    f'{any_additional_info_prompt}. {user_name} is the name of the viewer you are responding to, and doesn\'t '
+                    'necessarily have any meaning behind it.'
                 )
             },
             {
