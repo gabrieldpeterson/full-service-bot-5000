@@ -16,5 +16,12 @@ WEB_SOCKET_PASSWORD=webSocketPassword
 ## OBS Sources
 In OBS, in whichever scene you choose, have a corresponding source for each response file. By default, the code works with sources named 'fsbPositive', 'fsbNegative', 'fsbNeutral', and 'fsbInsane'. Make sure to change the scene variable in the obs_controller.py file to scene name the sources are under.
 
+## Install and run
+1. Install Python 3.9
+2. Activate the virtual environment with Python 3.9 selected 
+3. 'pip install requirements.txt'
+4. Run main.py
+
 ## Not currently in use
-* chatgpt_response.py - This was a test using a cheaper ChatGPT 3.5 model, but I found the response time too slow. I will revisit later to see if there have been speed improvements
+* chatgpt_response_davinci.py - This was a test using the Davinci model as it was easier to get the responses I was going after, but it is relatively expensive. I ended up getting just as good results with the cheaper model after playing with the prompts.
+* chatgpt_response_gpt4.py - I don't yet have access to this model, it was just prep
